@@ -23,7 +23,6 @@ jobs:
       - name: terraform init 
         id: init
         run: terraform init
-        working-directory: terraform
   
       - name: terraform validate
         id: validate
