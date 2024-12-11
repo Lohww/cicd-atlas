@@ -6,11 +6,14 @@ jobs:
   createinfrastructure:
     runs-on: ubuntu-latest
     env:
-      HOME: /home/ec2-user
+      HOME: /home/ec2-user  # Ensure HOME is set to the desired location
 
     steps:
       - name: pull code from the repo
         uses: actions/checkout@v4
+
+      - name: List files in the repository for debugging
+        run: ls -R  # List all files recursively
 
       - name: install terraform
         uses: hashicorp/setup-terraform@v3
@@ -22,23 +25,27 @@ jobs:
           aws-secret-access-key: ${{ secrets.SECRET_ACCESS_KEY }}
           aws-region: us-east-2
 
+      - name: Ensure HOME is set (debug step)
+        run: echo "HOME is set to $HOME"
+
       - name: terraform init 
         id: init
         run: terraform init
-        working-directory: ./terraform
-  
+        working-directory: ./terraform  # Ensure this path is correct
+
       - name: terraform validate
         id: validate
         run: terraform validate
-        working-directory: terraform
+        working-directory: ./terraform  # Ensure this path is correct
 
       - name: terraform plan
         id: plan
         run: terraform plan
-        working-directory: terraform
+        working-directory: ./terraform  # Ensure this path is correct
 
       - name: terraform apply 
         id: apply
         run: terraform apply --auto-approve
-        working-directory: terraform
+        working-directory: ./terraform  # Ensure this path is correct
+
       
