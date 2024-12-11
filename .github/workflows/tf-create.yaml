@@ -23,7 +23,7 @@ jobs:
       - name: terraform init 
         id: init
         run: terraform init
-        working-directory: terraform
+        working-directory: /home/ec2-user/cicd-atlas/terraform
   
       - name: terraform validate
         id: validate
