@@ -8,7 +8,7 @@ jobs:
 
     steps:
       - name: pull code from the repo
-        uses: actions/checkout@v4
+        uses: actions/checkout@v2
 
       - name: install terraform
         uses: hashicorp/setup-terraform@v3
@@ -23,7 +23,7 @@ jobs:
       - name: terraform init 
         id: init
         run: terraform init
-        working-directory: /home/ec2-user/cicd-atlas/terraform
+        working-directory: ./terraform
   
       - name: terraform validate
         id: validate
