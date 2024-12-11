@@ -5,6 +5,8 @@ on:
 jobs: 
   createinfrastructure:
     runs-on: ubuntu-latest
+    env:
+      HOME: /home/ec2-user
 
     steps:
       - name: pull code from the repo
@@ -23,7 +25,7 @@ jobs:
       - name: terraform init 
         id: init
         run: terraform init
-        working-directory: terraform
+        working-directory: ./terraform
   
       - name: terraform validate
         id: validate
