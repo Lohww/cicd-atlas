@@ -1,0 +1,42 @@
+name: terraformcreate
+on: 
+  workflow_dispatch:
+    
+jobs: 
+  createinfrastructure:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: pull code from the repo
+        uses: actions/checkout@v4
+
+      - name: install terraform
+        uses: hashicorp/setup-terraform@v3
+
+      - name: configure aws creds
+        uses: aws-actions/configure-aws-credentials@v4
+        with:
+          aws-access-key-id: ${{ secrets.ACCESS_KEY }}
+          aws-secret-access-key: ${{ secrets.SECRET_ACCESS_KEY }}
+          aws-region: us-east-2
+
+      - name: terraform init 
+        id: init
+        run: terraform init
+        working-directory: terraform
+  
+      - name: terraform validate
+        id: validate
+        run: terraform validate
+        working-directory: terraform
+
+      - name: terraform plan
+        id: plan
+        run: terraform plan
+        working-directory: terraform
+
+      - name: terraform apply 
+        id: apply
+        run: terraform apply --auto-approve
+        working-directory: terraform
+      
