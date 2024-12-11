@@ -2,7 +2,7 @@ resource "aws_instance" "tf-instance-1" {
   ami               = "ami-050cd642fd83388e4"
   availability_zone = "us-east-2a"
   instance_type     = "t2.micro"
-  key_name          = "VM1-key"
+  key_name          = "atlas3"
 
   tags = {
     Name = "tf-instance-1"
